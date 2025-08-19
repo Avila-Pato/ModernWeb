@@ -76,7 +76,7 @@ html, body {
   }
 
   .active-link {
-    @apply relative after:w-2/5 after:h-1 after:rounded-full after:bg-secondary after:absolute after:-bottom-0.5 after:right-3 ;
+    @apply relative after:w-2/3 after:h-1  after:rounded-full after:bg-secondary after:absolute after:-bottom-0.5 after:right-3 ;
   }
 
   .h1 {
