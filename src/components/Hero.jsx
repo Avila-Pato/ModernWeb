@@ -13,10 +13,10 @@ const Hero = () => {
             <div className="flex flex-col mt-12  text-white ">
               <div className="mx-12">
 
-              <button className="max-w-80 flex items-center space-x-3 border border-white medium-13 rounded-full px-4 pr-0.5 cursor-pointer">
+              <button className="p-1 flex items-center space-x-4 border border-white medium-13 rounded-full px-4 pr-0.5 cursor-pointer">
                 <span >Explora Como te simplificamos tu estadia y espacios</span>
                 <span className="flexCenter size-6 p-1 rounded-full bg-white">
-                  <img src={assets.right} alt="RightIcobn" width={20} />
+                  <img src={assets.right} alt="RightIcobn" width={20} className=" transition-transform duration-300 hover:translate-x-0.5"  />
                 </span>
               </button>
               <h2 className="h2 capitalize ">
@@ -110,9 +110,9 @@ const Hero = () => {
                 {/* Botón */}
                 <button
                   type="submit"
-                  className="flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-primary/90 py-3 px-6 text-white text-sm font-medium shadow transition max-md:w-full"
+                  className="flex items-center justify-center gap-1 bg-black rounded-md  py-3 px-6 text-white mx-auto  cursor-pointer max-lg:w-full max-md:py-1"
                 >
-                  <img src={assets.search} alt="SearchIcon" width={18} />
+                  <img src={assets.search} alt="SearchIcon" width={20} className="invert" />
                   <span>Buscar</span>
                 </button>
               </form>
