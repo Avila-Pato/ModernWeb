@@ -50,6 +50,7 @@ import pImg4 from "../assets/pImg4.png"
 import createPrp from "../assets/createPrp.png"
 import about from "../assets/about.png";
 import BookingIcon from '../assets/Booking-Icon.svg';
+import faq from '../assets/faq.png';
 
 // Blogs
 import blog1 from "../assets/blogs/blog1.jpg";
@@ -106,6 +107,7 @@ export const assets = {
     createPrp,
     about,
     BookingIcon,
+    faq
 
 }
 
