@@ -4,7 +4,7 @@ import { assets } from '../assets/data'
 
 const Item = ({ property }) => {
   return (
-    <Link to={`/property/${property._id}`} 
+    <Link to={`/listing/${property._id}`} 
     className="bg-white block rounded-lg ring-1 ring-slate-900 ">
       {/* Imagen */}
       <div className='relative'>

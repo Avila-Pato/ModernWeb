@@ -5,6 +5,7 @@ import Listing from "./pages/Listing"
 import Footer from "./components/Footer"
 import Blog from "./pages/Blog"
 import Contact from "./pages/Contact"
+import PropertyDetails from "./pages/PropertyDetails"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
+        <Route path="/listing/:id" element={<PropertyDetails/>} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
