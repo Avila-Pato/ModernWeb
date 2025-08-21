@@ -56,7 +56,7 @@ const FeaturedProperties = () => {
         className="h-[488px] md:h-[533px] xl:h-[422px] mt-5"
       >
         {properties.map((property) => (
-             <SwiperSlide key={property.title} className="flex justify-center">
+             <SwiperSlide key={property._id} className="flex justify-center">
                   <Item property={property}/>
              </SwiperSlide>
         ))}   
