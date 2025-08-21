@@ -49,6 +49,7 @@ import pImg3 from "../assets/pImg3.png"
 import pImg4 from "../assets/pImg4.png"
 import createPrp from "../assets/createPrp.png"
 import about from "../assets/about.png";
+import BookingIcon from '../assets/Booking-Icon.svg';
 
 // Blogs
 import blog1 from "../assets/blogs/blog1.jpg";
@@ -103,7 +104,9 @@ export const assets = {
     user3,
     user4,
     createPrp,
-    about
+    about,
+    BookingIcon,
+
 }
 
 export const cities = [

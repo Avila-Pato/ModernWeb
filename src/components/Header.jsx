@@ -3,12 +3,18 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/data";
 import Navbar from "./Navbar";
+import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { useAppContext } from "../context/AppContext";
 
 const Header = () => {
   const [active, setActive] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
+
+  const {navigate} = useAppContext()
+  const  { user } = useUser()
+  const { openSignIn } = useClerk()
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
@@ -107,13 +113,37 @@ const Header = () => {
                 />
               )}
             </>
+            <div className="group relative top-1"> 
             {/* User */}
-            <div>
               <div>
-                <button className="btn-secondary flexCenter gap-2 rounded-full">
+                {  user ? (
+                  <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: {
+                        width: 40,
+                        height: 40,
+                        borderRadius: "100%",
+                      },
+                    }
+                    
+                    
+                  }} >
+                    <UserButton.MenuItems>
+                      <UserButton.Action
+                      label="My Booking" 
+                      labelIcon={assets.BookingIcon} 
+                      onClick={() => navigate("/my-bookings")} >
+
+                      </UserButton.Action>
+                    </UserButton.MenuItems>
+                  </UserButton>
+                 ) : (
+                  <button onClick={openSignIn} className="btn-secondary flexCenter gap-2 rounded-full">
                   Login
                   <img src={assets.user} alt="User Icon" className="w-6 h-6" />
                 </button>
+                )}
               </div>
             </div>
           </div>
