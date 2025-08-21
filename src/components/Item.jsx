@@ -5,7 +5,7 @@ import { assets } from '../assets/data'
 const Item = ({ property }) => {
   return (
     <Link to={`/property/${property._id}`} 
-    className="bg-white block rounded-lg ring-1 ring-slate-900">
+    className="bg-white block rounded-lg ring-1 ring-slate-900 ">
       {/* Imagen */}
       <div className='relative'>
         <img  src={property.images[0]} alt={property.title} 
@@ -13,7 +13,7 @@ const Item = ({ property }) => {
       </div>
       {/* Informacion */}
       <div className='p-3'>
-        <div className='flexBetween '>
+        <div className='flexBetween  '>
           <h5 className='bold-16 mt-1'>{property.propertyType}</h5>
           <div className='bold-15 text-secondary'>${property.price.sale} | ${property.price.rent}.00 
             <span className='text-xs'>/noches</span></div>
@@ -41,6 +41,7 @@ const Item = ({ property }) => {
             {property.facilities.area} m²
           </p>
         </div>
+        <p className='pt-2 mb-4 line-clamp-2'>{property.description}</p>
       </div>
     </Link>
   )

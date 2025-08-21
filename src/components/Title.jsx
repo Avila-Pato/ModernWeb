@@ -2,8 +2,8 @@ import React from 'react'
 
 const Title = ({ title1, title2, titleStyles, title25Styles, paraStyles, para }) => {
   return (
-    <div className={`${titleStyles}`}>
-      <h1 className="h4 text-secondary">
+    <div className={`${titleStyles} `} >
+      <h1 className="h4 text-secondary ">
         {title1}
       </h1>
       <h4 className={`${title25Styles} h1 capitalize`}>

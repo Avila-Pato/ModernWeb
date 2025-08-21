@@ -16,7 +16,7 @@ const FeaturedProperties = () => {
   const  { properties } = useAppContext()
 
   return (
-    <section className="max-padd-container py-16 xl:py-22">
+    <section className="max-padd-container py-16 xl:py-22 ">
         <span className="medium-18">Tu estadia te espera</span>
         <h2 className="h2">Descubre tu lugar aqui</h2>
         <div className="flexBetween mt-8 mb-6">
