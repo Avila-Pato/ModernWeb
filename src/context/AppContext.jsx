@@ -11,6 +11,8 @@ export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [properties, setProperties] = useState([]);
   const [showAgencyReg, setShowAgencyReg] = useState(false)
+  const [isOwner, setIsOwner] = useState(true)
+
 
   const getProperties = () => {
     // Simulate un feching a a mi API simulada
@@ -26,7 +28,9 @@ export const AppContextProvider = ({ children }) => {
     currency,
     user,
     showAgencyReg,
-    setShowAgencyReg
+    setShowAgencyReg,
+    isOwner,
+    setIsOwner
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

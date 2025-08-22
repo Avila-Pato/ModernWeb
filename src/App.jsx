@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
 import Header from "./components/Header"
 import Home from "./pages/Home"
 import Listing from "./pages/Listing"
@@ -9,13 +9,19 @@ import PropertyDetails from "./pages/PropertyDetails"
 import MyBookings from "./pages/MyBookings"
 import AgencyReg from "./components/AgencyReg"
 import { useAppContext } from "./context/AppContext"
+import Sidebar from "./components/owner/Sidebar"
+import Dashboard from "./pages/owner/Dashboard"
+import AddProperty from "./pages/owner/AddProperty"
+import ListProperty from "./pages/owner/ListProperty"
 
 function App() {
+  const location =  useLocation()
+  const isOwnerPath = location.pathname.includes('owner')
   const { showAgencyReg } = useAppContext()
 
   return (
     <main>
-      <Header />
+      {!isOwnerPath &&  <Header />}
       {showAgencyReg && <AgencyReg />  }
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,8 +30,15 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+
+        <Route path="/owner" element={<Sidebar />} >
+            <Route index  element={<Dashboard />} />        
+            <Route path="/owner/add-property"  element={<AddProperty />} />
+            <Route path="/owner/list-property"  element={<ListProperty/>} />
+        </Route>
+      
       </Routes>
-      <Footer />
+     {!isOwnerPath && <Footer />}
     </main>
   )
 }
