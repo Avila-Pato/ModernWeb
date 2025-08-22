@@ -7,9 +7,10 @@ const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const currency = import.meta.env.VITE_CURRENCY;
   const [properties, setProperties] = useState([]);
-  const { user } = useUser();
+  const [showAgencyReg, setShowAgencyReg] = useState(false)
 
   const getProperties = () => {
     // Simulate un feching a a mi API simulada
@@ -24,6 +25,8 @@ export const AppContextProvider = ({ children }) => {
     properties,
     currency,
     user,
+    showAgencyReg,
+    setShowAgencyReg
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
