@@ -146,6 +146,7 @@ export const dummyAgentData = {
 }
 
 
+
 // Property Listings Dummy Data
 export const dummyProperties = [
     {
