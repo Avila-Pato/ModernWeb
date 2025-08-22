@@ -5,8 +5,8 @@ import PropertyImages from "../components/PropertyImages";
 import { assets } from "../assets/data";
 
 const PropertyDetails = () => {
-  const { properties } = useAppContext();
-  const [property, setProperty] = useState(null);
+  const { properties, currency } = useAppContext();
+  const [ property, setProperty] = useState(null);
 
   const { id } = useParams();
 
@@ -37,7 +37,7 @@ const PropertyDetails = () => {
             <div className="flex justify-between flex-col sm:flex-row sm:items-end mt-3">
               <h3 className="text-xl font-bold">{property.title}</h3>
               <div className="text-lg font-semibold">
-                ${property.price.sale} | ${property.price.rent}.00 / noche
+                 {currency}{property.price.sale} |  {currency}{property.price.rent}.00 / noche
               </div>
             </div>
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/data";
 import Navbar from "./Navbar";
-import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { useClerk, UserButton } from "@clerk/clerk-react";
 import { useAppContext } from "../context/AppContext";
 
 const Header = () => {
@@ -11,9 +11,7 @@ const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
-
-  const {navigate} = useAppContext()
-  const  { user } = useUser()
+  const {navigate, user} = useAppContext()
   const { openSignIn } = useClerk()
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
