@@ -67,8 +67,7 @@ const Dashboard = () => {
                 key={booking._id || index}
                 className="grid grid-cols-[0.5fr_2fr_2fr_1fr_1fr] items-center px-6 py-4 bg-white text-sm hover:bg-gray-50 transition-colors"
               >
-                <span className="hidden lg:block text-gray-500">{index + 1}</span>
-
+                <div className="hidden lg:block text-gray-500">{index + 1}</div>
                 {/* Property */}
                 <div className="flex items-center gap-3 min-w-0">
                   <img
@@ -95,7 +94,7 @@ const Dashboard = () => {
 
                 {/* Status */}
                 <div className="flex justify-start">
-                  <span
+                  <button
                     className={`px-3 py-1 rounded-full text-xs font-medium
                       ${
                         booking.isPaid
@@ -105,7 +104,7 @@ const Dashboard = () => {
                     `}
                   >
                     {booking.isPaid ? "Completo" : "Pendiente"}
-                  </span>
+                  </button>
                 </div>
               </div>
             ))
