@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 const app = express();
 app.use(cors());
 
-app,use('/', (req, res) => {
+app.use('/', (req, res) => {
     res.send('Hello from server');
 });
 
