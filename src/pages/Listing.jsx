@@ -3,7 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import Item from "../components/Item";
 
 const Listing = () => {
-  const { properties } = useAppContext();
+  const { properties, currency } = useAppContext();
   const sortOptions = ["Revelantes", "Bajos y Altos", "Altos y Bajos"];
 
   const propertyTypes = [
@@ -47,19 +47,20 @@ const Listing = () => {
           {/* Tipos de propiedades */}
           <div className="py-3 mt-4">
             <h5 className="h5 mb-4"> Tipos de propiedades</h5>
-            {propertyTypes.map((type) => {
-              <label key={type} className="flex gap-2 medium-14">
-                <input type="checkbox" />
-              </label>;
-            })}
+            {propertyTypes.map((type) => (
+               <label key={type} className="flex gap-2 medium-14">
+                <input type="checkbox" value={type} />
+                {type}
+              </label>
+            ))}
           </div>
           {/* ranggp de precios */}
-          <div className="py-3 mt-2">
+          <div className="py-3 mt-2 ">
             <h5 className="h5 mb-4">Rango de precios</h5>
             {priceRange.map((price) => (
-              <label key={price} className="flex gap-2 medium-14">
+              <label key={price} className="flex mt-2  gap-2 medium-14">
                 <input type="checkbox" />
-                ${price}
+                {currency}{price}
               </label>
             ))}
           </div>

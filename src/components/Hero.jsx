@@ -14,7 +14,7 @@ const Hero = () => {
               <div className="mx-12">
 
               <button className="p-1 flex items-center space-x-4 border border-white medium-13 rounded-full px-4 pr-0.5 cursor-pointer">
-                <span >Explora Como te simplificamos tu estadia y espacios</span>
+                <span >Explora Como te simplificamos las vistas y espacios</span>
                 <span className="flexCenter size-6 p-1 rounded-full bg-white">
                   <img src={assets.right} alt="RightIcobn" width={20} className=" transition-transform duration-300 hover:translate-x-0.5"  />
                 </span>
@@ -33,7 +33,7 @@ const Hero = () => {
               </div>
 
               {/* Busqieda de reservas en el formulario */}
-              <form className="bg-white  text-gray-600 rounded-xl px-6 py-6 flex flex-col  lg:flex-row lg:items-end gap-6 lg:gap-8 max-w-5xl mx-12 shadow-sm ring-1 ring-slate-900/5">
+              <form className="bg-white  text-gray-600 rounded-xl px-6 py-6 flex flex-col  lg:flex-row lg:items-end gap-6 lg:gap-8 max-w-6xl mx-12 shadow-sm ring-1 ring-slate-900/5">
                 {/* Destinos */}
                 <div className="flex flex-col w-full ">
                   <label

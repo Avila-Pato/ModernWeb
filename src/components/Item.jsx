@@ -8,7 +8,7 @@ const Item = ({ property }) => {
 
   return (
     <Link to={`/listing/${property._id}`} 
-    className="bg-white block rounded-lg ring-1 ring-slate-900 ">
+    className="bg-white block rounded-lg ring-1 ring-slate-900/15 mx-0 ">
       {/* Imagen */}
       <div className='relative'>
         <img  src={property.images[0]} alt={property.title} 

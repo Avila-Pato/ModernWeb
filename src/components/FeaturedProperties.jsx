@@ -17,8 +17,8 @@ const FeaturedProperties = () => {
 
   return (
     <section className="max-padd-container py-16 xl:py-22 ">
-        <span className="medium-18">Tu estadia te espera</span>
-        <h2 className="h2">Descubre tu lugar aqui</h2>
+        <span className="medium-18">La propiedad que  desees </span>
+        <h2 className="h2">Descubre el  lugar perfecto</h2>
         <div className="flexBetween mt-8 mb-6">
           <h5>
             {" "}
