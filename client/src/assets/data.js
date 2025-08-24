@@ -38,30 +38,30 @@ import user1 from './user1.png'
 import user2 from './user2.png'
 import user3 from './user3.png'
 import user4 from './user4.png'
-import img1 from "../assets/img1.png"
-import img2 from "../assets/img2.png"
-import img3 from "../assets/img3.png"
-import img4 from "../assets/img4.png"
-import img5 from "../assets/img5.png"
-import img6 from "../assets/img6.png"
-import pImg2 from "../assets/pImg2.png"
-import pImg3 from "../assets/pImg3.png"
-import pImg4 from "../assets/pImg4.png"
-import createPrp from "../assets/createPrp.png"
-import about from "../assets/about.png";
-import BookingIcon from '../assets/Booking-Icon.svg';
-import faq from '../assets/faq.png';
-import uploadIcon  from "../assets/upload_icon.png"
+import img1 from "./img1.png"
+import img2 from "./img2.png"
+import img3 from "./img3.png"
+import img4 from "./img4.png"
+import img5 from "./img5.png"
+import img6 from "./img6.png"
+import pImg2 from "./pImg2.png"
+import pImg3 from "./pImg3.png"
+import pImg4 from "./pImg4.png"
+import createPrp from "./createPrp.png"
+import about from "./about.png";
+import BookingIcon from './Booking-Icon.svg';
+import faq from './faq.png';
+import uploadIcon  from "./upload_icon.png"
 
 // Blogs
-import blog1 from "../assets/blogs/blog1.jpg";
-import blog2 from "../assets/blogs/blog2.jpg";
-import blog3 from "../assets/blogs/blog3.jpg";
-import blog4 from "../assets/blogs/blog4.jpg";
-import blog5 from "../assets/blogs/blog5.jpg";
-import blog6 from "../assets/blogs/blog6.jpg";
-import blog7 from "../assets/blogs/blog7.jpg";
-import blog8 from "../assets/blogs/blog8.jpg";
+import blog1 from "./blogs/blog1.jpg";
+import blog2 from "./blogs/blog2.jpg";
+import blog3 from "./blogs/blog3.jpg";
+import blog4 from "./blogs/blog4.jpg";
+import blog5 from "./blogs/blog5.jpg";
+import blog6 from "./blogs/blog6.jpg";
+import blog7 from "./blogs/blog7.jpg";
+import blog8 from "./blogs/blog8.jpg";
 
 
 export const assets = {
