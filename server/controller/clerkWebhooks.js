@@ -3,7 +3,7 @@ import User from "../models/User.js";
 
 const clerkWebhooks = async (req, res) => {
   try {
-    const hook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
+    const hook = new Webhook(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
     const headers = {
       "svix-id": req.headers["svix-id"],
