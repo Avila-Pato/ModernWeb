@@ -12,7 +12,7 @@ export const addProperty =  async (req, res) => {
             return res.json({success: false, message: "El usuario ya tiene una agencia registrada"})
         }
 
-        await Agency.create({name, email, address, contact, city })
+        await Agency.create({name, email, address, contact, city, owner })
         await User.findByIdAndUpdate(req.user._id, {role: "agencyOwner"})
 
         res.json({success: true, message: "Agencia creada con exito"})

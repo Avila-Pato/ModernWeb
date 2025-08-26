@@ -1,20 +1,45 @@
 import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets, cities } from "../assets/data";
+import toast from "react-hot-toast";
 
 const AgencyReg = () => {
-  const { setShowAgencyReg } = useAppContext();
+  const { setShowAgencyReg, axios, getToken, setIsOwner } = useAppContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
 
+  const onSubmitHandler = async (event) => {
+    try {
+      event.preventDefault();
+      const { data } = await axios.post(
+        "/api/agencies",
+        { name, email, contact, address, city },
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        setIsOwner(true);
+        setShowAgencyReg(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
-    <div  onClick={() => setShowAgencyReg(true)} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+    <div
+      onClick={() => setShowAgencyReg(true)}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+    >
       {/* Modal con animación */}
       <form
-       onClick={(e) => e.stopPropagation()}
+        onSubmit={onSubmitHandler}
+        onClick={(e) => e.stopPropagation()}
         className="flexCenter bg-white rounded-xl max-w-4xl w-full max-md:mx-2 relative overflow-hidden 
         animate-[fadeIn_0.3s_ease-out] shadow-xl"
       >
@@ -31,7 +56,7 @@ const AgencyReg = () => {
           <img
             src={assets.close}
             alt="cerrar"
-            onClick={() => setShowAgencyReg(true)}
+            onClick={() => setShowAgencyReg(false)}
             className="absolute top-4 right-4 h-6 w-6 p-1 cursor-pointer bg-secondary/50 hover:bg-secondary/70 rounded-full shadow-md transition"
           />
 
@@ -137,7 +162,7 @@ const AgencyReg = () => {
           {/* Botón */}
           <button
             type="submit"
-            className="mt-6 w-full rounded-lg bg-indigo-600 py-2 text-white font-medium hover:bg-indigo-700 transition"
+            className="mt-6 w-full rounded-lg bg-indigo-600 py-2 text-white font-medium hover:bg-indigo-700 transition cursor-pointer"
           >
             Registrar
           </button>

@@ -11,7 +11,7 @@ const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
-  const {navigate, user} = useAppContext()
+  const {navigate, user, isOwner, setShowAgencyReg } = useAppContext()
   const { openSignIn } = useClerk()
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
@@ -67,6 +67,13 @@ const Header = () => {
 
           {/* Botones, perfil y buscador */}
           <div className="flex sm:flex-1 items-center sm:justify-center gap-x-4 sm:gap-x-8">
+              <div>
+                {user && (
+                  <button onClick={() => isOwner ? navigate("/owner") : setShowAgencyReg(true)} className={`btn-outline px-2 py-1 text-xs font-semibold ${!active && "text-primary ring-primary bg-transparent hover:text-black"} bg-secondary/10 hover:bg-white`} >
+                    {isOwner ? "Dashboard" : "Registar Agencia"}
+                  </button>
+                )}
+              </div>
             {/* Serachbar */}
             <div className="relative   hidden lg:flex items-center">
               <div
