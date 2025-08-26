@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { assets } from "../../assets/data";
+import toast from "react-hot-toast";
+import { useAppContext } from "../../context/AppContext";
 
 const AddProperty = () => {
+  const { axios, getToken } = useAppContext();
   const [images, setImages] = useState({
     1: null,
     2: null,
@@ -33,9 +36,115 @@ const AddProperty = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    if (
+      !inputs.title ||
+      !inputs.description ||
+      !inputs.city ||
+      !inputs.country ||
+      !inputs.address ||
+      !inputs.area ||
+      !inputs.propertyType ||
+      (inputs.priceRent && !inputs.priceSale) ||
+      (!inputs.priceRent && inputs.priceSale) ||
+      !inputs.bedrooms ||
+      !inputs.bathrooms
+      // !inputs.garages
+    ) {
+      toast.error("Todos los campos son obligatorios");
+      return;
+    }
+
+    // Check si a menos 1 iamgen esta subida
+    const hasImage = Object.values(images).some((img) => img !== null);
+    if (!hasImage) {
+      toast.error("Sube al menos una imagen");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("title", inputs.title);
+      formData.append("description", inputs.description);
+      formData.append("city", inputs.city);
+      formData.append("country", inputs.country);
+      formData.append("address", inputs.address);
+      formData.append("area", inputs.area);
+      formData.append("propertyType", inputs.propertyType);
+      formData.append("bedrooms", Number(inputs.bedrooms));
+      formData.append("bathrooms", Number(inputs.bathrooms));
+      formData.append("garages", Number(inputs.garages));
+      formData.append(
+        "priceRent",
+        inputs.priceRent ? Number(inputs.priceRent) : ""
+      );
+      formData.append(
+        "priceSale",
+        inputs.priceSale ? Number(inputs.priceSale) : ""
+      );
+
+      //Convertir amenidades en arrays y mantener solo als amemitis disponibles
+
+      const amenities = Object.keys(inputs.amenities).filter(
+        (key) => inputs.amenities[key]
+      );
+      formData.append("amenities", JSON.stringify(amenities));
+
+      //Agregando imagenes a formData
+
+      Object.keys(images).forEach((key) => {
+        images[key] && formData.append("images", images[key]);
+      });
+
+      const { data } = await axios.post("/api/properties", formData, {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+        setLoading(false);
+        setInputs({
+          title: "",
+          description: "",
+          city: "",
+          country: "",
+          address: "",
+          area: "",
+          propertyType: "",
+          priceRent: "",
+          priceSale: "",
+          bedrooms: "",
+          bathrooms: "",
+          garages: "",
+          amenities: {
+            Estacionamiento: false,
+            Wifi: false,
+            Jardin: false,
+            Terraza: false,
+          },
+        });
+        setImages({
+          1: null,
+          2: null,
+          3: null,
+          4: null,
+        });
+      } else {
+        toast.error(data.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="md:px-8 py-6 xl:py-8 m-1.5 sm:m-3 h-[97vh] overflow-y-scroll lg:w-11/12 bg-white shadow rounded-xl">
-      <form className="flex flex-col gap-y-3.5 px-2 text-sm xl:max-w-3xl">
+      <form onSubmit={onSubmitHandler} className="flex flex-col gap-y-3.5 px-2 text-sm xl:max-w-3xl">
         <div className="w-full">
           <h5 className="h5">Nombre de las propiedades</h5>
           <input
@@ -212,7 +321,6 @@ const AddProperty = () => {
             {Object.keys(inputs.amenities).map((amenity, index) => (
               <div key={index} className="flex gap-1">
                 <input
-                  id={`amenities[index + 1]`}
                   onChange={() =>
                     setInputs({
                       ...inputs,
@@ -222,8 +330,9 @@ const AddProperty = () => {
                       },
                     })
                   }
-                  checked={inputs.amenities[amenity]}
+                  id={`amenities[index + 1]`}
                   type="checkbox"
+                  checked={inputs.amenities[amenity]}
                   className="px-3 py-1.5 ring-1 ring-sky-900/10 rounded-lg bg-secondary/5 mt-1 w-20"
                 />
                 <label htmlFor={`amenities${index + 1}`}>{amenity}</label>
@@ -232,7 +341,7 @@ const AddProperty = () => {
           </div>
         </div>
         {/* imagenes */}
-        <h5 className="h5">Imagenes de  referencias </h5>
+        <h5 className="h5">Imagenes de referencias </h5>
         <div className="flex gap-2 mt-2">
           {Object.keys(images).map((key) => (
             <label

@@ -19,7 +19,7 @@ const propertySchema = mongoose.Schema({
         garages: {type: Number, required: true}
     },
     amenities: {type: Array, required: true},
-    images: { type: String},
+    images: [{ type: String}],
     isAvailable: {type: Boolean, default: true},
 }, 
     {timestamps: true}
