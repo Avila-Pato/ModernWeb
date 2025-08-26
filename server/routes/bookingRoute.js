@@ -1,9 +1,9 @@
 import express from "express";
-import { authUser } from "../middleware/authMiddleware";
-import { bookingCreate, checkBookingAvailability, getAgencyBookings, getUserBookings } from "../controller/bookingController";
+import { authUser } from "../middleware/authMiddleware.js";
+import { bookingCreate, checkBookingAvailability, getAgencyBookings, getUserBookings } from "../controller/bookingController.js";
 
 
-bookingRouter = express.Router();
+const bookingRouter = express.Router();
 
 bookingRouter.post("/check-availability", authUser, checkBookingAvailability)
 bookingRouter.post("/book", authUser, bookingCreate)

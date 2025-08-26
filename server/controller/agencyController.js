@@ -2,7 +2,7 @@ import User from  "../models/User.js"
 import Agency from "../models/Agency.js"
 
 
-export const agencyReg =  async (req, res) => {
+export const addProperty =  async (req, res) => {
     try {
         const {name, email, address, contact, city} = req.body
         const owner = req.user._id

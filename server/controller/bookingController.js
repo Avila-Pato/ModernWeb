@@ -1,6 +1,6 @@
-import Agency from "../models/Agency";
-import Booking from "../models/Booking";
-import Property from "../models/Property";
+import Agency from "../models/Agency.js";
+import Booking from "../models/Booking.js";
+import Property from "../models/Property.js";
 
 // Dispoonibilidad de la propiedad, en un rango de fechas
 const checkAvailability = async ({ checkInDate, checkOutDate, property }) => {
