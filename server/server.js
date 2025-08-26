@@ -3,7 +3,12 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/mongodb.js";
 import { clerkMiddleware } from '@clerk/express'
+
 import clerkWebhooks from './controller/clerkWebhooks.js';
+
+import userRouter from './routes/userRoute.js';
+import agencyRouter from './routes/agencyRoutes.js';
+import propertyRouter from './routes/propertyRoute.js';
 
 
 await connectDB()
@@ -15,6 +20,11 @@ app.use(express.json());
 
 app.use('/api/clerk', clerkWebhooks)
 app.use(clerkMiddleware())
+
+app.use("/api/user", userRouter);
+app.use("/api/agencies", agencyRouter);
+app.use("/api/properties", propertyRouter);
+
 
 app.use('/', (req, res) => {
     res.send('Hello from servereeeeeee');
