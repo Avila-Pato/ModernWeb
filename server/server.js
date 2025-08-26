@@ -9,6 +9,7 @@ import clerkWebhooks from './controller/clerkWebhooks.js';
 import userRouter from './routes/userRoute.js';
 import agencyRouter from './routes/agencyRoutes.js';
 import propertyRouter from './routes/propertyRoute.js';
+import bookingRouter from './routes/bookingRoute.js';
 
 
 await connectDB()
@@ -24,6 +25,7 @@ app.use(clerkMiddleware())
 app.use("/api/user", userRouter);
 app.use("/api/agencies", agencyRouter);
 app.use("/api/properties", propertyRouter);
+app.use("/api/bookings", bookingRouter);
 
 
 app.use('/', (req, res) => {
