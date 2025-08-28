@@ -1,18 +1,22 @@
-import User from "../models/User.js"
+import User from "../models/User.js";
 
 export const authUser = async (req, res, next) => {
-    //  Se obtiene el userId de la autenticación de Clerk
-    const { userId } = req.auth()
+  try {
+    const { userId } = req.auth?.();  // 👈 ojo, es FUNCIÓN ahora
 
-    if(!userId) {
-        // Si no se encuentra el userId en la autenticación de Clerk, se devuelve un error
-        res.json({ success: false, message: "Unauthorized" })
-    }else {
-        // Busca en la base de datos al usuario correspondiente
-        const user = await User.findById(userId)
-        // adjunta el usuario al objecto para usarlo en las rutas
-        req.user = user
-        // Se pasa al siguiente middleware o controllador
-        next()
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-}
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error("Auth error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

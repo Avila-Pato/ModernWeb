@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dummyProperties } from "../assets/data";
 import { useAuth, useUser } from "@clerk/clerk-react";
-import axios from "axios"
+import axios from "axios";
 import toast from "react-hot-toast";
 
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const AppContext = createContext();
 
@@ -15,48 +15,58 @@ export const AppContextProvider = ({ children }) => {
 
   const [searchedCities, setSearchedCities] = useState([]);
   const [properties, setProperties] = useState([]);
-  const [showAgencyReg, setShowAgencyReg] = useState(false)
-  const [isOwner, setIsOwner] = useState(false)
-  
+  const [showAgencyReg, setShowAgencyReg] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+
   // clerk credentials
   const { user } = useUser();
-  const {getToken} = useAuth()
+
+  // auth
+  // const token = await getToken({ template: "default" });
+  const { getToken } = useAuth();
 
   const getProperties = () => {
-    // Simulate un feching a a mi API simulada
+    // Simulación de fetching desde API
     setProperties(dummyProperties);
   };
 
+  
+
   const getUser = async () => {
+    console.log("TOKEN EN APP CONTEXT", await getToken());
     try {
-      const { data } = await axios.get("/api/user", {headers: { Authorization: `Bearer ${await getToken()}` }})
-      if(!data.success) {
-        setIsOwner(data.role === "agencyOwner")
-        setSearchedCities(data.recentSearchedCities)
-      }else {
+      const token = await getToken(); 
+      const { data } = await axios.get("/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (data.success) {
+        setIsOwner(data.role === "agencyOwner");
+        setSearchedCities(data.recentSearchedCities);
+      } else {
+        toast.error(data.message || "Error al obtener el usuario");
         setTimeout(() => {
-          getUser()
-        }, 5000)
+          getUser();
+        }, 5000);
       }
-
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+      }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUser();
     }
-  }
-
-
-useEffect(() => {
-  if(user) {
-    getUser()
-  }
-}, [user])
+  }, [user]);
 
   useEffect(() => {
     getProperties();
   }, []);
-
-
-
 
   const value = {
     navigate,
@@ -67,9 +77,11 @@ useEffect(() => {
     setShowAgencyReg,
     isOwner,
     setIsOwner,
+    searchedCities,       // 🔹 agregado
+    setSearchedCities,    // 🔹 agregado
     axios,
-    getToken
-
+    getToken,
+    loading
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
