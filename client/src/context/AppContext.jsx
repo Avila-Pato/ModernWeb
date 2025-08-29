@@ -35,9 +35,9 @@ export const AppContextProvider = ({ children }) => {
   
 
   const getUser = async () => {
-    console.log("TOKEN EN APP CONTEXT", await getToken());
     try {
       const token = await getToken(); 
+      console.log("TOKEN EN APP CONTEXT", await getToken());
       const { data } = await axios.get("/api/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -59,6 +59,7 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("USER EN CLERK:", user);
     if (user) {
       getUser();
     }

@@ -19,17 +19,20 @@ import { requireAuth } from "@clerk/express";
 await connectDB()
 await connectCloudinary()
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// app.use(clerkMiddleware()) 
+app.use(clerkMiddleware()) 
+
 app.use('/api/clerk', clerkWebhooks)
 
-app.use("/api/user", requireAuth(),  userRouter);
+app.use("/api/user", requireAuth(), userRouter);
 app.use("/api/agencies", agencyRouter);
-app.use("/api/properties", propertyRouter);
+app.use("/api/properties", requireAuth(), propertyRouter); // 👈 ahora protegida
 app.use("/api/bookings", bookingRouter);
+
 
 
 app.use('/', (req, res) => {
