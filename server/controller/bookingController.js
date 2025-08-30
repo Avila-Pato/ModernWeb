@@ -89,7 +89,7 @@ export const getAgencyBookings = async (req, res) => {
         const totalBookings = bookings.length
         const totalRevenue = bookings.reduce((acc, b) => acc + (b.isPaid ? b.totalPrice : 0), 0)
 
-        res.json({success: true, dashboard: {totalBookings, totalRevenue}, bookings})
+        res.json({success: true, dashboardData: {totalBookings, totalRevenue, bookings}})
     } catch (error) {
         res.json({success: false, message: "Error al obtener las reservas"})
     }

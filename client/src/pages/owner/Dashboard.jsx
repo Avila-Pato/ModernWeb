@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { assets, dummyDashboardData } from "../../assets/data";
+import { toast } from "react-hot-toast";
+import { assets } from "../../assets/data";
 
 const Dashboard = () => {
-  const { user, currency } = useAppContext();
+  const { user, currency, getToken, axios } = useAppContext();
   const [dashboardData, setDashboardData] = useState({
     bookings: [],
     totalBookings: 0,
@@ -11,11 +12,25 @@ const Dashboard = () => {
   });
 
   const getDashboardData = async () => {
-    setDashboardData(dummyDashboardData);
-  };
+    try {
+          const { data } = await axios.get("/api/bookings/agency", {
+            headers: { Authorization: `Bearer ${await getToken()}` }
+          })
+          if (data.success) {
+            setDashboardData(data.properties)
+          }else {
+            toast.error(data.message);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
 
   useEffect(() => {
-    getDashboardData();
+    if (user) {
+      getDashboardData();
+    }
   }, [user]);
 
   return (
@@ -27,7 +42,7 @@ const Dashboard = () => {
           <img src={assets.house} alt="House" className="hidden sm:block w-8 h-8" />
           <div>
             <h4 className="text-2xl font-bold text-gray-800">
-              {(dashboardData.totalBookings ?? 0).toString().padStart(2, "0")}
+              {dashboardData?.totalBookings?.toString().padStart(2, "0")}
             </h4>
             <p className="text-sm font-medium text-secondary">Ventas totales</p>
           </div>
@@ -39,7 +54,7 @@ const Dashboard = () => {
           <div>
             <h4 className="text-2xl font-bold text-gray-800">
               {currency}
-              {(dashboardData.totalRevenue ?? 0).toLocaleString()}
+              {dashboardData?.totalRevenue || 0}
             </h4>
             <p className="text-sm font-medium text-secondary">Ganancias</p>
           </div>

@@ -1,14 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { dummyProperties } from "../../assets/data";
+// import { dummyProperties } from "../../assets/data";
+import toast from "react-hot-toast";
 
 const ListProperty = () => {
-  const { user, currency } = useAppContext();
+  const {axios, getToken, user, currency } = useAppContext();
   const [properties, setProperties] = useState([]);
 
   const getProperties = async () => {
-    setProperties(dummyProperties);
+    try {
+      const { data } = await axios.get("/api/properties/owner", {
+        headers: { Authorization: `Bearer ${await getToken()}` }
+      })
+
+      if (data.success) {
+        setProperties(data.properties)
+      }else {
+        toast.error(data.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const toggleAvailability = async (propertyId) => {
+    const { data } = await axios.post(`/api/properties/toggle-availability/${propertyId}`, {
+      headers: { Authorization: `Bearer ${await getToken()}` }
+    }) 
+
+    if(data.success){
+      toast.success(data.message)
+      getProperties()
+    }else{
+      toast.error(data.message)
+    }
+  }
+
+
 
   useEffect(() => {
     if (user) {
@@ -65,6 +94,7 @@ const ListProperty = () => {
               <div className="flex items-center">
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
+                  onChange={() => toggleAvailability(property._id)}
                     type="checkbox"
                     className="sr-only peer"
                     defaultChecked={property.isAvailable}
