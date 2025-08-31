@@ -11,7 +11,7 @@ const Hero = () => {
           <div className="relative flex justify-end mx-auto flex-col gap-4 h-full py-6 sm:pt-18 z-10">
             {/* Center */}
             <div className="flex flex-col mt-12  text-white ">
-              <div className="mx-12">
+              <div className="mx-12 lg:mx-12 ">
 
               <button className="p-1 flex items-center space-x-4 border border-white medium-13 rounded-full px-4 pr-0.5 cursor-pointer">
                 <span >Explora Como te simplificamos las vistas y espacios</span>
@@ -19,7 +19,7 @@ const Hero = () => {
                   <img src={assets.right} alt="RightIcobn" width={20} className=" transition-transform duration-300 hover:translate-x-0.5"  />
                 </span>
               </button>
-              <h2 className="h2 capitalize ">
+              <h2 className="h2 capitalize mx-2 md:mx-0">
                 Explora{" "}
                 <span
                   className="bg-gradient-to-r from-secondary to-white
