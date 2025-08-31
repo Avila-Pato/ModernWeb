@@ -4,12 +4,14 @@ import { toast } from "react-hot-toast";
 import { assets } from "../../assets/data";
 
 const Dashboard = () => {
-  const { user, currency, getToken, axios } = useAppContext();
+  const { user, currency, getToken, axios} = useAppContext();
   const [dashboardData, setDashboardData] = useState({
     bookings: [],
     totalBookings: 0,
     totalRevenue: 0,
   });
+
+
 
   const getDashboardData = async () => {
     try {

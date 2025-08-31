@@ -18,6 +18,8 @@ export const AppContextProvider = ({ children }) => {
   const [showAgencyReg, setShowAgencyReg] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   const [loading, setLoading] = useState(true);
 
   // clerk credentials
@@ -88,11 +90,14 @@ export const AppContextProvider = ({ children }) => {
     setShowAgencyReg,
     isOwner,
     setIsOwner,
-    searchedCities,       // 🔹 agregado
-    setSearchedCities,    // 🔹 agregado
+    searchedCities,       
+    setSearchedCities,    
     axios,
     getToken,
-    loading
+    loading,
+
+    searchQuery,
+    setSearchQuery
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

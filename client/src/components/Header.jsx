@@ -1,20 +1,39 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/data";
 import Navbar from "./Navbar";
 import { useClerk, UserButton } from "@clerk/clerk-react";
 import { useAppContext } from "../context/AppContext";
+
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [active, setActive] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
-  const { navigate, user, isOwner, setShowAgencyReg, loading } = useAppContext();
+  const { navigate, user, isOwner, setShowAgencyReg, loading, searchQuery, setSearchQuery } = useAppContext();
   const { openSignIn } = useClerk();
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
+
+
+
+  const isBlogPage =  location.pathname.includes("listing");
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (value.trim().length > 0 && !isBlogPage) {
+      navigate("listing")
+    }
+  }
+
+    useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }, [searchQuery]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,6 +113,8 @@ const Header = () => {
                 } `}
               >
                 <input
+                  value={searchQuery}
+                  onChange={handleSearchChange}
                   type="text"
                   placeholder="Search"
                   className="w-full  outline-none text-sm pr-10 placeholder:text-gray-400"
