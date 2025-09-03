@@ -3,6 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
 import PropertyImages from "../components/PropertyImages";
 import { assets } from "../assets/data";
+import { dummyProperties } from "../assets/data.js"; 
 
 const PropertyDetails = () => {
   const { properties, currency } = useAppContext();
@@ -11,7 +12,12 @@ const PropertyDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const selected = properties.find((p) => p._id === id);
+  let selected = properties.find((p) => p._id === id);
+if (!selected) {
+  selected = dummyProperties.find((p) => p._id === id);
+}
+
+  console.log("selected:", selected);
     selected && setProperty(selected);
   }, [id, properties]);
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
 import Item from "../components/Item";
+import { dummyProperties } from "../assets/data";
 
 const Listing = () => {
   const { properties, currency } = useAppContext();
@@ -48,7 +49,7 @@ const Listing = () => {
           <div className="py-3 mt-4">
             <h5 className="h5 mb-4"> Tipos de propiedades</h5>
             {propertyTypes.map((type) => (
-               <label key={type} className="flex gap-2 medium-14">
+              <label key={type} className="flex gap-2 medium-14">
                 <input type="checkbox" value={type} />
                 {type}
               </label>
@@ -60,22 +61,26 @@ const Listing = () => {
             {priceRange.map((price) => (
               <label key={price} className="flex mt-2  gap-2 medium-14">
                 <input type="checkbox" />
-                {currency}{price}
+                {currency}
+                {price}
               </label>
             ))}
           </div>
         </div>
         {/* Propiedades lado derecho */}
         <div className="min-h-[97vh] overflow-scroll rounded-xl">
-          {properties.length > 0 ? (
+          {(properties.length > 0 ? properties : dummyProperties).length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
-              {properties.map((property) => (
-                <Item key={property._id} property={property} />
-              ))
-              }
-          </div>
+              {(properties.length > 0 ? properties : dummyProperties).map(
+                (property) => (
+                  <Item key={property._id} property={property} />
+                )
+              )}
+            </div>
           ) : (
-            <div className="text-center text-gray-500 mt-20">No hay propiedades</div>
+            <div className="text-center text-gray-500 mt-20">
+              No hay propiedades
+            </div>
           )}
         </div>
       </div>
