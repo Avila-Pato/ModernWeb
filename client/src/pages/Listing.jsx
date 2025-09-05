@@ -4,8 +4,19 @@ import Item from "../components/Item";
 import { dummyProperties } from "../assets/data";
 
 const Listing = () => {
-  const { properties, currency } = useAppContext();
+  const { properties, currency, searchQuery} = useAppContext();
   const sortOptions = ["Revelantes", "Bajos y Altos", "Altos y Bajos"];
+
+
+
+ 
+  const allProperties = properties.length > 0 ? properties : dummyProperties;
+
+   const filteredProperties = allProperties.filter((property) =>
+    property.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+
 
   const propertyTypes = [
     "Casa",
@@ -60,7 +71,7 @@ const Listing = () => {
             <h5 className="h5 mb-4">Rango de precios</h5>
             {priceRange.map((price) => (
               <label key={price} className="flex mt-2  gap-2 medium-14">
-                <input type="checkbox" />
+                <input type="checkbox"  />
                 {currency}
                 {price}
               </label>
@@ -68,21 +79,20 @@ const Listing = () => {
           </div>
         </div>
         {/* Propiedades lado derecho */}
-        <div className="min-h-[97vh] overflow-scroll rounded-xl">
-          {(properties.length > 0 ? properties : dummyProperties).length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
-              {(properties.length > 0 ? properties : dummyProperties).map(
-                (property) => (
-                  <Item key={property._id} property={property} />
-                )
-              )}
-            </div>
-          ) : (
-            <div className="text-center text-gray-500 mt-20">
-              No hay propiedades
-            </div>
-          )}
-        </div>
+       <div className="min-h-[97vh] overflow-scroll rounded-xl">
+  {filteredProperties.length > 0 ? (
+    <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+      {filteredProperties.map((property) => (
+        <Item key={property._id} property={property} />
+      ))}
+    </div>
+  ) : (
+    <div className="text-center text-gray-500 mt-20">
+      No hay propiedades
+    </div>
+  )}
+</div>
+
       </div>
     </div>
   );
